@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Kidbit Project</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: #0d0d0d;
+    color: #ddd;
+    font-family: Arial, sans-serif;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* TOP BAR */
+
+.topbar {
+    height: 50px;
+    background: #181818;
+    border-bottom: 1px solid #292929;
+
+    display: flex;
+    align-items: center;
+
+    padding: 0 15px;
+
+    gap: 20px;
+}
+
+.logo {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.logo span {
+    color: #7c5cff;
+}
+
+.project-name {
+    color: #888;
+    font-size: 14px;
+}
+
+/* MAIN */
+
+.workspace {
+    display: flex;
+    height: calc(100vh - 50px);
+}
+
+/* FILE EXPLORER */
+
+.explorer {
+    width: 220px;
+
+    background: #111;
+
+    border-right: 1px solid #292929;
+
+    padding: 15px 0;
+}
+
+.explorer-title {
+    font-size: 11px;
+    font-weight: bold;
+
+    color: #777;
+
+    padding: 0 15px 12px;
+
+    letter-spacing: .5px;
+}
+
+.file {
+    padding: 9px 18px;
+
+    font-family: Consolas, monospace;
+    font-size: 13px;
+
+    cursor: pointer;
+
+    color: #aaa;
+}
+
+.file:hover {
+    background: #1d1d1d;
+    color: white;
+}
+
+.file.active {
+    background: #252525;
+    color: white;
+}
+
+/* EDITOR */
+
+.editor-area {
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+
+    min-width: 0;
+}
+
+.tabs {
+    height: 40px;
+
+    background: #181818;
+
+    border-bottom: 1px solid #292929;
+
+    display: flex;
+    align-items: center;
+}
+
+.tab {
+    height: 40px;
+
+    padding: 0 18px;
+
+    display: flex;
+    align-items: center;
+
+    background: #111;
+
+    border-right: 1px solid #292929;
+
+    font-family: Consolas, monospace;
+    font-size: 13px;
+
+    color: #ddd;
+}
+
+/* CODE */
+
+.code-editor {
+    flex: 1;
+
+    display: flex;
+
+    overflow: hidden;
+
+    background: #0d0d0d;
+}
+
+.line-numbers {
+    width: 55px;
+
+    padding: 18px 12px;
+
+    text-align: right;
+
+    color: #444;
+
+    font-family: Consolas, monospace;
+    font-size: 14px;
+
+    line-height: 1.7;
+
+    user-select: none;
+}
+
+.code {
+    flex: 1;
+
+    padding: 18px;
+
+    overflow: auto;
+
+    font-family: Consolas, monospace;
+    font-size: 14px;
+
+    line-height: 1.7;
+
+    white-space: pre;
+
+    color: #ddd;
+}
+
+/* PREVIEW */
+
+.preview {
+    width: 38%;
+
+    background: #111;
+
+    border-left: 1px solid #292929;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.preview-header {
+    height: 40px;
+
+    display: flex;
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 0 12px;
+
+    background: #181818;
+
+    border-bottom: 1px solid #292929;
+
+    font-size: 13px;
+}
+
+.run {
+    border: none;
+
+    background: #7c5cff;
+
+    color: white;
+
+    padding: 7px 13px;
+
+    border-radius: 6px;
+
+    cursor: pointer;
+
+    font-weight: bold;
+}
+
+.run:hover {
+    background: #6849ef;
+}
+
+.preview-frame {
+    flex: 1;
+
+    background: white;
+
+    margin: 15px;
+
+    border-radius: 7px;
+
+    overflow: hidden;
+}
+
+.preview-frame iframe {
+    width: 100%;
+    height: 100%;
+
+    border: none;
+}
+
+/* BOTTOM */
+
+.bottom {
+    position: fixed;
+
+    bottom: 15px;
+    right: 15px;
+
+    display: flex;
+    gap: 8px;
+}
+
+.bottom button {
+    border: 1px solid #333;
+
+    background: #181818;
+
+    color: white;
+
+    padding: 9px 14px;
+
+    border-radius: 7px;
+
+    cursor: pointer;
+}
+
+.bottom button:hover {
+    background: #252525;
+}
+
+.remix {
+    background: #7c5cff !important;
+    border-color: #7c5cff !important;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- TOP -->
+
+<header class="topbar">
+
+    <div class="logo">
+        kid<span>bit</span>
+    </div>
+
+    <div class="project-name">
+        My First Project
+    </div>
+
+</header>
+
+
+<!-- WORKSPACE -->
+
+<div class="workspace">
+
+
+    <!-- FILE EXPLORER -->
+
+    <aside class="explorer">
+
+        <div class="explorer-title">
+            EXPLORER
+        </div>
+
+        <div
+            class="file active"
+            data-file="index.html"
+        >
+            📄 index.html
+        </div>
+
+        <div
+            class="file"
+            data-file="style.css"
+        >
+            🎨 style.css
+        </div>
+
+        <div
+            class="file"
+            data-file="script.js"
+        >
+            🟨 script.js
+        </div>
+
+    </aside>
+
+
+    <!-- EDITOR -->
+
+    <main class="editor-area">
+
+        <div class="tabs">
+
+            <div
+                class="tab"
+                id="tab"
+            >
+                index.html
+            </div>
+
+        </div>
+
+
+        <div class="code-editor">
+
+            <div
+                class="line-numbers"
+                id="lineNumbers"
+            ></div>
+
+            <pre
+                class="code"
+                id="code"
+            ></pre>
+
+        </div>
+
+    </main>
+
+
+    <!-- PREVIEW -->
+
+    <aside class="preview">
+
+        <div class="preview-header">
+
+            <span>
+                PREVIEW
+            </span>
+
+            <button
+                class="run"
+                id="run"
+            >
+                ▶ Run
+            </button>
+
+        </div>
+
+        <div class="preview-frame">
+
+            <iframe
+                id="preview"
+            ></iframe>
+
+        </div>
+
+    </aside>
+
+</div>
+
+
+<!-- BUTTONS -->
+
+<div class="bottom">
+
+    <button id="copy">
+        📋 Copy
+    </button>
+
+    <button>
+        💾 Download
+    </button>
+
+    <button class="remix">
+        🔀 Remix
+    </button>
+
+</div>
+
+
+<script src="project.js"></script>
+
+</body>
+</html>
